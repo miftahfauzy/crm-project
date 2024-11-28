@@ -5,173 +5,461 @@ A modern, feature-rich Customer Relationship Management system built with Next.j
 ## 🌟 Features
 
 ### 1. Customer Management
-- Customer profiles with detailed information
-- Customer analytics and insights
-- Communication history tracking
-- Custom tags and categorization
+- **Customer Profiles**
+  - Detailed customer information storage
+  - Contact history tracking
+  - Purchase history and preferences
+  - Custom fields support
+  - Document attachments
+- **Customer Analytics**
+  - Purchase patterns analysis
+  - Customer lifetime value calculation
+  - Engagement metrics
+  - Churn prediction
+- **Segmentation**
+  - Custom tags and categories
+  - Dynamic segmentation rules
+  - Automated categorization
+  - Bulk segment management
 
 ### 2. Order Management
-- Complete order lifecycle tracking
-- Order history and status updates
-- Bulk order operations
-- Advanced order querying and reporting
+- **Order Lifecycle**
+  - Order creation and tracking
+  - Status updates with notifications
+  - Payment integration
+  - Shipping status tracking
+- **Bulk Operations**
+  - Mass order processing
+  - Batch status updates
+  - Bulk shipping label generation
+  - Export/Import functionality
+- **Reporting**
+  - Sales analytics
+  - Revenue reports
+  - Order status distribution
+  - Custom report builder
 
 ### 3. Communication Tools
-- Communication analytics
-- Message history tracking
-- Automated communication logs
-- Multi-channel support
+- **Multi-Channel Support**
+  - Email integration
+  - SMS notifications
+  - In-app messaging
+  - Communication history
+- **Templates**
+  - Custom email templates
+  - SMS templates
+  - Automated responses
+  - Dynamic content insertion
+- **Analytics**
+  - Open rates tracking
+  - Response time metrics
+  - Communication effectiveness
+  - Channel performance
 
 ### 4. Task Management
-- Task creation and assignment
-- Productivity dashboard
-- Task progress tracking
-- Team performance analytics
+- **Task Organization**
+  - Create and assign tasks
+  - Priority levels
+  - Due date tracking
+  - Task dependencies
+- **Team Collaboration**
+  - Task sharing
+  - Team assignments
+  - Progress tracking
+  - Comment threads
+- **Productivity Tools**
+  - Time tracking
+  - Performance metrics
+  - Workload distribution
+  - Deadline monitoring
 
-### 5. Bulk Operations
-- Bulk tag management
-- Mass order processing
-- Batch customer updates
-- Report generation
-
-### 6. Analytics & Reporting
-- Real-time dashboard
-- Customer analytics
-- Sales metrics
-- Productivity insights
-- Custom report generation
+### 5. Analytics & Reporting
+- **Dashboards**
+  - Real-time metrics
+  - Customizable widgets
+  - Data visualization
+  - Export capabilities
+- **Reports**
+  - Sales reports
+  - Customer reports
+  - Team performance
+  - Custom report builder
+- **KPI Tracking**
+  - Revenue metrics
+  - Customer satisfaction
+  - Team productivity
+  - Goal achievement
 
 ## 🚀 Technology Stack
 
-- **Frontend**: Next.js, TypeScript, Material-UI, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Database**: Prisma ORM
-- **Authentication**: JWT-based auth system
-- **State Management**: React Hooks
-- **Charts & Visualization**: Recharts
-- **Form Handling**: React Hook Form, Zod
-- **Styling**: Tailwind CSS, CSS Modules
-- **Notifications**: Notistack
+### Frontend
+- **Next.js 14**
+  - App Router
+  - Server Components
+  - Client Components
+  - API Routes
+- **UI Components**
+  - Material-UI v5
+  - Tailwind CSS
+  - Custom UI Components
+  - Responsive Design
+- **State Management**
+  - React Context
+  - Custom Hooks
+  - Local Storage
+  - Session Management
 
-## 📦 Prerequisites
+### Backend
+- **API Architecture**
+  - RESTful endpoints
+  - Error handling
+  - Rate limiting
+  - Request validation
+- **Database**
+  - Prisma ORM
+  - Migrations
+  - Data seeding
+  - Query optimization
+- **Security**
+  - JWT Authentication
+  - Role-based access
+  - Input sanitization
+  - CORS configuration
 
-- Node.js >= 18.13.0
-- npm or yarn
-- Git
+## 📦 Installation Guide
 
-## 🛠️ Installation
+### Prerequisites
+1. **Node.js Installation**
+   ```bash
+   # Check Node.js version
+   node --version  # Should be >= 18.13.0
+   
+   # Check npm version
+   npm --version
+   ```
 
-1. Clone the repository:
-```bash
-git clone https://github.com/miftahfauzy/crm-project.git
-cd crm-project
+2. **Database Setup**
+   ```bash
+   # Install PostgreSQL (if not using SQLite)
+   # Windows: Download from https://www.postgresql.org/download/windows/
+   # Create a new database
+   createdb crm_database
+   ```
+
+### Step-by-Step Setup
+
+1. **Clone and Install**
+   ```bash
+   # Clone repository
+   git clone https://github.com/miftahfauzy/crm-project.git
+   cd crm-project
+
+   # Install dependencies
+   npm install
+   ```
+
+2. **Environment Configuration**
+   ```bash
+   # Copy environment file
+   cp .env.example .env
+
+   # Configure environment variables
+   DATABASE_URL="postgresql://user:password@localhost:5432/crm_database"
+   JWT_SECRET="your-secret-key"
+   NEXT_PUBLIC_API_URL="http://localhost:3000"
+   ```
+
+3. **Database Migration**
+   ```bash
+   # Generate Prisma Client
+   npx prisma generate
+
+   # Run migrations
+   npm run migrate:dev
+
+   # Seed database (if available)
+   npx prisma db seed
+   ```
+
+4. **Development Server**
+   ```bash
+   # Start development server
+   npm run dev
+
+   # Build for production
+   npm run build
+
+   # Start production server
+   npm run start
+   ```
+
+## 🔑 API Documentation
+
+### Authentication
+
+#### Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
 ```
 
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
+#### Register
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepass123",
+  "role": "user"
+}
 ```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env
-```
+### Customer Endpoints
 
-4. Set up the database:
-```bash
-npm run migrate:dev
-# or
-yarn migrate:dev
-```
-
-5. Start the development server:
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-## 🗄️ Project Structure
-
-```
-project/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   ├── dashboard/         # Dashboard pages
-│   └── customers/         # Customer management pages
-├── components/            # React components
-│   ├── ui/               # UI components
-│   ├── dashboard/        # Dashboard components
-│   └── tasks/            # Task management components
-├── lib/                   # Utility functions and services
-│   ├── services/         # Business logic services
-│   └── middleware/       # API middleware
-├── prisma/               # Database schema and migrations
-└── public/               # Static assets
-```
-
-## 🔑 API Endpoints
-
-### Customer API
-- `GET /api/customers` - List all customers
-- `POST /api/customers` - Create new customer
-- `GET /api/customers/analytics` - Get customer analytics
-
-### Order API
-- `GET /api/orders` - List all orders
-- `POST /api/orders` - Create new order
-- `GET /api/orders/[id]` - Get order details
-
-### Communication API
-- `GET /api/communications` - List communications
-- `POST /api/communications` - Create communication
-- `GET /api/communications/analytics` - Get communication analytics
-
-### Task API
-- `GET /api/tasks` - List tasks
-- `POST /api/tasks` - Create task
-- `GET /api/tasks/productivity` - Get productivity metrics
-
-## 🔐 Authentication
-
-The system uses JWT-based authentication. Include the JWT token in the Authorization header:
-```
+#### List Customers
+```http
+GET /api/customers
 Authorization: Bearer <token>
+Query Parameters:
+- page (default: 1)
+- limit (default: 10)
+- search
+- sortBy
+- order (asc/desc)
 ```
 
-## 🛡️ Environment Variables
+#### Create Customer
+```http
+POST /api/customers
+Authorization: Bearer <token>
+Content-Type: application/json
 
-Required environment variables:
+{
+  "name": "Customer Name",
+  "email": "customer@example.com",
+  "phone": "+1234567890",
+  "address": {
+    "street": "123 Main St",
+    "city": "City",
+    "country": "Country"
+  }
+}
 ```
-DATABASE_URL=          # Prisma database connection URL
-JWT_SECRET=           # Secret key for JWT tokens
-NEXT_PUBLIC_API_URL=  # Frontend API URL
+
+### Order Endpoints
+
+#### Create Order
+```http
+POST /api/orders
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "customerId": "customer_id",
+  "items": [
+    {
+      "productId": "product_id",
+      "quantity": 2
+    }
+  ],
+  "status": "pending"
+}
 ```
 
-## 📝 Scripts
+#### Bulk Update Orders
+```http
+PATCH /api/bulk/orders
+Authorization: Bearer <token>
+Content-Type: application/json
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
-- `npm run migrate:dev` - Run database migrations
-- `npm run migrate:deploy` - Deploy database migrations
+{
+  "orderIds": ["id1", "id2"],
+  "status": "shipped"
+}
+```
+
+## 🛡️ Security
+
+### Authentication Flow
+1. User logs in with credentials
+2. Server validates and returns JWT token
+3. Client stores token in memory/localStorage
+4. Token is included in subsequent requests
+5. Server validates token for each protected route
+
+### Role-Based Access Control
+```typescript
+enum UserRole {
+  ADMIN = 'admin',
+  MANAGER = 'manager',
+  SALES = 'sales',
+  USER = 'user'
+}
+
+interface Permission {
+  role: UserRole;
+  actions: string[];
+}
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/crm_database
+
+# Authentication
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=24h
+
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:3000
+CORS_ORIGIN=http://localhost:3000
+
+# Email Service (Optional)
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=user@example.com
+SMTP_PASS=password
+
+# Feature Flags
+ENABLE_NOTIFICATIONS=true
+ENABLE_EMAIL_SERVICE=true
+```
+
+## 📊 Database Schema
+
+### Core Tables
+```prisma
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  tags      Tag[]
+}
+
+model Order {
+  id         String   @id @default(uuid())
+  customerId String
+  status     String
+  total      Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id])
+  items      Item[]
+}
+```
+
+## 🚀 Deployment
+
+### Production Build
+```bash
+# Build application
+npm run build
+
+# Start production server
+npm run start
+```
+
+### Docker Deployment
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
 
 ## 🤝 Contributing
 
+### Development Workflow
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create feature branch
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Make changes and commit
+   ```bash
+   git commit -m "feat: add amazing feature"
+   ```
+4. Push to branch
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. Open Pull Request
+
+### Coding Standards
+- Follow TypeScript best practices
+- Use ESLint and Prettier
+- Write unit tests for new features
+- Follow conventional commits
+
+## 📈 Performance Optimization
+
+### Frontend
+- Implement code splitting
+- Use Image optimization
+- Enable caching strategies
+- Minimize bundle size
+
+### Backend
+- Implement query optimization
+- Use connection pooling
+- Cache frequently accessed data
+- Implement rate limiting
+
+## 📱 Mobile Responsiveness
+
+The application is fully responsive and tested on:
+- Desktop (1920x1080)
+- Laptop (1366x768)
+- Tablet (768x1024)
+- Mobile (375x667)
+
+## 🔍 Testing
+
+### Unit Tests
+```bash
+# Run unit tests
+npm run test
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+### E2E Tests
+```bash
+# Run E2E tests
+npm run test:e2e
+```
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Contact
+## 👥 Contact & Support
 
-Miftah Fauzy - [GitHub](https://github.com/miftahfauzy)
+- **Developer**: Miftah Fauzy
+- **GitHub**: [miftahfauzy](https://github.com/miftahfauzy)
+- **Issues**: [GitHub Issues](https://github.com/miftahfauzy/crm-project/issues)
+- **Documentation**: [Wiki](https://github.com/miftahfauzy/crm-project/wiki)
+
+For support:
+1. Check existing issues
+2. Create a new issue
+3. Join our community discussions
