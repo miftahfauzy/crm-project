@@ -31,12 +31,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.11.1'
-          
-      - name: Setup npm
-        working-directory: ./project
-        run: |
-          npm install -g npm@latest
-          npm config set legacy-peer-deps true
+          cache: 'npm'
+          cache-dependency-path: './project/package-lock.json'
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -47,13 +43,9 @@ jobs:
           npm install
           npm run postinstall
         
-      - name: Lint
+      - name: Generate Prisma Client
         working-directory: ./project
-        run: npm run lint || true
-        
-      - name: Type check
-        working-directory: ./project
-        run: npx tsc --noEmit || true
+        run: npx prisma generate
         
       - name: Build with Next.js
         working-directory: ./project

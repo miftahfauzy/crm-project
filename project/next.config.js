@@ -22,6 +22,10 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_BASE_PATH: '/crm-project',
   },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false };
+    return config;
+  },
 }
 
 module.exports = nextConfig
