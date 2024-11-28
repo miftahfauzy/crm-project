@@ -18,6 +18,7 @@ concurrency:
 
 env:
   NODE_ENV: production
+  NEXT_PUBLIC_BASE_PATH: /crm-project
 
 jobs:
   build:
@@ -36,7 +37,9 @@ jobs:
         uses: actions/configure-pages@v4
         
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm run postinstall
         
       - name: Lint
         run: npm run lint || true

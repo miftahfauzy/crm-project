@@ -3,6 +3,7 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
+    domains: ['localhost'],
   },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/` : '',
@@ -16,7 +17,10 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    serverActions: true,
+    serverActions: false,
+  },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: '/crm-project',
   },
 }
 
