@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
     dirs: ['app', 'components', 'lib'],
   },
   images: { 
-    unoptimized: false,
+    unoptimized: true,
     domains: ['localhost', 'your-cdn-domain.com'],
   },
+  basePath: '/crm-project',
   experimental: {
     serverActions: true,
     optimizePackageImports: ['@radix-ui/react-*'],
