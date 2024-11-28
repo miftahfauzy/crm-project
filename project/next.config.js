@@ -6,11 +6,12 @@ const nextConfig = {
   eslint: {
     dirs: ['app', 'components', 'lib'],
   },
-  images: { 
+  images: {
     unoptimized: true,
-    domains: ['localhost', 'your-cdn-domain.com'],
   },
-  basePath: '/crm-project',
+  basePath: process.env.NODE_ENV === 'production' ? '/crm-project' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/crm-project/' : '',
+  trailingSlash: true,
   experimental: {
     serverActions: true,
     optimizePackageImports: ['@radix-ui/react-*'],
