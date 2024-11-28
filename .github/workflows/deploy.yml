@@ -23,9 +23,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./project
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +33,7 @@ jobs:
           node-version: '20.11.1'
           
       - name: Setup npm
+        working-directory: ./project
         run: |
           npm install -g npm@latest
           npm config set legacy-peer-deps true
@@ -44,17 +42,21 @@ jobs:
         uses: actions/configure-pages@v4
         
       - name: Install dependencies
+        working-directory: ./project
         run: |
           npm install
           npm run postinstall
         
       - name: Lint
+        working-directory: ./project
         run: npm run lint || true
         
       - name: Type check
+        working-directory: ./project
         run: npx tsc --noEmit || true
         
       - name: Build with Next.js
+        working-directory: ./project
         run: npm run build
         env:
           NODE_ENV: production
