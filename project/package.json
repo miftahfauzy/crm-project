@@ -7,7 +7,6 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,8 +14,7 @@
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
     "prepare": "prisma generate",
     "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
-    "postinstall": "prisma generate"
+    "migrate:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
