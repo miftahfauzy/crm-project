@@ -3,7 +3,12 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
   },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/` : '',
@@ -23,7 +28,17 @@ const nextConfig = {
     NEXT_PUBLIC_BASE_PATH: '/crm-project',
   },
   webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false };
+    config.resolve.fallback = { 
+      fs: false, 
+      net: false, 
+      tls: false,
+      crypto: false,
+      path: false,
+      stream: false,
+      http: false,
+      https: false,
+      zlib: false,
+    };
     return config;
   },
 }
