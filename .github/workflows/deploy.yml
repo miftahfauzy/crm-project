@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
@@ -14,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   NODE_ENV: production
@@ -35,6 +33,7 @@ jobs:
           cache-dependency-path: 'project/package-lock.json'
           
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v4
         
       - name: Install dependencies
