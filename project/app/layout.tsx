@@ -1,5 +1,6 @@
+'use client';
+
 import './globals.css';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
@@ -8,11 +9,6 @@ import Header from '@/components/layout/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Modern CRM',
-  description: 'A powerful CRM system for modern businesses',
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -20,6 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>Modern CRM</title>
+        <meta name="description" content="A powerful CRM system for modern businesses" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
