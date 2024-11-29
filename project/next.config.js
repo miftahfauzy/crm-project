@@ -6,6 +6,7 @@ const nextConfig = {
   },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/` : '',
+  distDir: 'out',
   trailingSlash: true,
   reactStrictMode: true,
   swcMinify: true,
@@ -35,17 +36,10 @@ const nextConfig = {
     };
     return config;
   },
-  // Define static pages for export
-  exportPathMap: async function () {
-    return {
-      '/': { page: '/' },
-      '/dashboard': { page: '/dashboard' },
-      '/customers': { page: '/customers' },
-      '/orders': { page: '/orders' },
-      '/communications': { page: '/communications' },
-      '/settings': { page: '/settings' },
-    };
-  },
+  // Exclude API routes and other server-side features
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(extension => {
+    return !extension.includes('api');
+  }),
 };
 
 module.exports = nextConfig;
