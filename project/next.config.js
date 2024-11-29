@@ -41,6 +41,21 @@ const nextConfig = {
     };
     return config;
   },
+  // Handle static export with API routes
+  rewrites: async () => {
+    return [];
+  },
+  // Exclude API routes from static export
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      '/dashboard': { page: '/dashboard' },
+      '/customers': { page: '/customers' },
+      '/orders': { page: '/orders' },
+      '/communications': { page: '/communications' },
+      '/tags': { page: '/tags' },
+    };
+  },
 }
 
 module.exports = nextConfig
