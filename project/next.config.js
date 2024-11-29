@@ -47,7 +47,7 @@ const nextConfig = {
   },
   // Exclude API routes from static export
   exportPathMap: async function () {
-    return {
+    const paths = {
       '/': { page: '/' },
       '/dashboard': { page: '/dashboard' },
       '/customers': { page: '/customers' },
@@ -55,6 +55,22 @@ const nextConfig = {
       '/communications': { page: '/communications' },
       '/tags': { page: '/tags' },
     };
+
+    // Add dynamic paths
+    const dynamicPaths = [
+      '/customers/[id]',
+      '/orders/[id]',
+      '/communications/[id]',
+      '/tags/[id]',
+    ];
+
+    // Add dynamic paths with placeholder IDs
+    dynamicPaths.forEach(path => {
+      const staticPath = path.replace('[id]', '1');
+      paths[staticPath] = { page: path };
+    });
+
+    return paths;
   },
 }
 

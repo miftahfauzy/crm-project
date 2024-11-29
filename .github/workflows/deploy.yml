@@ -43,20 +43,30 @@ jobs:
         
       - name: Install dependencies
         run: |
+          echo "Installing dependencies..."
           npm install --legacy-peer-deps
+          echo "Dependencies installed successfully"
+          npm list --depth=0
           
       - name: Setup Database
         run: |
+          echo "Setting up database..."
           mkdir -p prisma
           touch prisma/dev.db
+          echo "Generating Prisma client..."
           npx prisma generate
+          echo "Database setup completed"
           
       - name: Build with Next.js
         run: |
           echo "Starting Next.js build..."
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
           NEXT_PUBLIC_BASE_PATH="/crm-project" npm run build
           echo "Build completed. Contents of out directory:"
           ls -la out/
+          echo "Checking for index.html:"
+          find out/ -name "index.html"
         env:
           NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: /crm-project
@@ -64,7 +74,9 @@ jobs:
         
       - name: Fix permissions
         run: |
+          echo "Setting file permissions..."
           chmod -c -R +rX out/
+          echo "Permissions updated"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
