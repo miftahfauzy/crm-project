@@ -3,7 +3,6 @@
 import React from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Grid } from '@/components/ui/grid';
 import { staticData } from '@/lib/data/static-data';
 
 export default function BulkOperationsDashboard() {
