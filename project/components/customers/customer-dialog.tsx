@@ -34,9 +34,10 @@ const formSchema = z.object({
 interface CustomerDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSubmit?: (data: z.infer<typeof formSchema>) => void;
 }
 
-export function CustomerDialog({ open, onOpenChange }: CustomerDialogProps) {
+export function CustomerDialog({ open, onOpenChange, onSubmit }: CustomerDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,10 +51,14 @@ export function CustomerDialog({ open, onOpenChange }: CustomerDialogProps) {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
-      await axios.post('/api/customers', values);
+      if (onSubmit) {
+        await onSubmit(values);
+      } else {
+        await axios.post('/api/customers', values);
+      }
       toast({
         title: 'Success',
         description: 'Customer created successfully',
@@ -78,7 +83,7 @@ export function CustomerDialog({ open, onOpenChange }: CustomerDialogProps) {
           <DialogTitle>Add New Customer</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="name"
