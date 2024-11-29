@@ -14,10 +14,14 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+defaults:
+  run:
+    working-directory: project
+
 env:
   NODE_ENV: production
   NEXT_PUBLIC_BASE_PATH: /crm-project
-  DATABASE_URL: "file:./dev.db"
+  DATABASE_URL: "file:./prisma/dev.db"
 
 jobs:
   build:
@@ -31,33 +35,29 @@ jobs:
         with:
           node-version: '20.11.1'
           cache: 'npm'
-          cache-dependency-path: 'project/package-lock.json'
+          cache-dependency-path: project/package-lock.json
           
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
         
       - name: Install dependencies
-        shell: bash
         run: |
-          cd project
-          npm ci --legacy-peer-deps
+          npm install --no-optional --legacy-peer-deps
           
-      - name: Generate Prisma Client
-        shell: bash
+      - name: Setup Database
         run: |
-          cd project
+          mkdir -p prisma
+          touch prisma/dev.db
           npx prisma generate
           
       - name: Build with Next.js
-        shell: bash
         run: |
-          cd project
           npm run build
         env:
           NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: /crm-project
-          DATABASE_URL: "file:./dev.db"
+          DATABASE_URL: "file:./prisma/dev.db"
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
