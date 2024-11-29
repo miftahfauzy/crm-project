@@ -32,24 +32,29 @@ jobs:
         with:
           node-version: '20.11.1'
           cache: 'npm'
-          cache-dependency-path: './project/package-lock.json'
+          cache-dependency-path: 'project/package-lock.json'
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
       - name: Install dependencies
-        working-directory: ./project
+        shell: bash
         run: |
+          cd project
           npm install
           npm run postinstall
         
       - name: Generate Prisma Client
-        working-directory: ./project
-        run: npx prisma generate
+        shell: bash
+        run: |
+          cd project
+          npx prisma generate
         
       - name: Build with Next.js
-        working-directory: ./project
-        run: npm run build
+        shell: bash
+        run: |
+          cd project
+          npm run build
         env:
           NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: /crm-project
@@ -57,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./project/out
+          path: project/out
 
   deploy:
     environment:
