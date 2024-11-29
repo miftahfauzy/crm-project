@@ -3,12 +3,6 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-    ],
   },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/` : '',
@@ -41,37 +35,17 @@ const nextConfig = {
     };
     return config;
   },
-  // Handle static export with API routes
-  rewrites: async () => {
-    return [];
-  },
-  // Exclude API routes from static export
+  // Define static pages for export
   exportPathMap: async function () {
-    const paths = {
+    return {
       '/': { page: '/' },
       '/dashboard': { page: '/dashboard' },
       '/customers': { page: '/customers' },
       '/orders': { page: '/orders' },
       '/communications': { page: '/communications' },
-      '/tags': { page: '/tags' },
+      '/settings': { page: '/settings' },
     };
-
-    // Add dynamic paths
-    const dynamicPaths = [
-      '/customers/[id]',
-      '/orders/[id]',
-      '/communications/[id]',
-      '/tags/[id]',
-    ];
-
-    // Add dynamic paths with placeholder IDs
-    dynamicPaths.forEach(path => {
-      const staticPath = path.replace('[id]', '1');
-      paths[staticPath] = { page: path };
-    });
-
-    return paths;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
